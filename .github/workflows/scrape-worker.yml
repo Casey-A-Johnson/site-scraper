@@ -35,7 +35,7 @@ jobs:
       - name: Process scrape jobs
         timeout-minutes: 25
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DEV }}
           GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           REDIS_URL: ${{ secrets.REDIS_URL }}
