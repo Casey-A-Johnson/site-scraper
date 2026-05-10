@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { Worker } from "bullmq";
 import IORedis from "ioredis";
 import { neon } from "@neondatabase/serverless";
@@ -7,8 +9,6 @@ import * as schema from "../db/schema";
 import { searchBusinesses } from "../lib/google-places";
 import { scrapeWebsite } from "../lib/scraper";
 import { analyzeSite, generateOutreach } from "../lib/openai";
-
-import "dotenv/config";
 
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql, { schema });
