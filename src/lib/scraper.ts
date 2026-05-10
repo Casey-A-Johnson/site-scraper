@@ -1,6 +1,4 @@
 import puppeteer from "puppeteer";
-import path from "path";
-import fs from "fs";
 
 interface ScrapeResult {
   screenshotPath: string;
@@ -33,14 +31,9 @@ export async function scrapeWebsite(url: string): Promise<ScrapeResult> {
 
   const loadTime = Date.now() - startTime;
 
-  // Take screenshot
-  const screenshotsDir = path.join(process.cwd(), "public", "screenshots");
-  if (!fs.existsSync(screenshotsDir)) {
-    fs.mkdirSync(screenshotsDir, { recursive: true });
-  }
-  const screenshotFilename = `${Date.now()}-${Math.random().toString(36).slice(2)}.png`;
-  const screenshotPath = path.join(screenshotsDir, screenshotFilename);
-  await page.screenshot({ path: screenshotPath, fullPage: false });
+  // Take screenshot as base64
+  const screenshotBuffer = await page.screenshot({ fullPage: false, encoding: "binary" });
+  const screenshotBase64 = `data:image/png;base64,${Buffer.from(screenshotBuffer).toString("base64")}`;
 
   // Get page HTML
   const html = await page.content();
@@ -65,7 +58,7 @@ export async function scrapeWebsite(url: string): Promise<ScrapeResult> {
   await browser.close();
 
   return {
-    screenshotPath: `/screenshots/${screenshotFilename}`,
+    screenshotPath: screenshotBase64,
     emails,
     html,
     loadTime,
