@@ -1,0 +1,101 @@
+@import '../../styles/variables';
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+}
+
+.card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  padding: $spacing-2xl;
+  width: 100%;
+  max-width: 420px;
+
+  h1 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-xs;
+  }
+
+  > p {
+    color: $text-secondary;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.field {
+  margin-bottom: $spacing-lg;
+
+  label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-xs;
+    color: $text-secondary;
+  }
+
+  input {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    color: $text-primary;
+    font-size: $font-size-base;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-primary;
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+}
+
+.error {
+  color: $accent-danger;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-md;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background: $accent-primary;
+  color: $bg-primary;
+  border-radius: $radius-md;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-base;
+  transition: opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $spacing-lg;
+
+  a {
+    color: $accent-primary;
+    font-size: $font-size-sm;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

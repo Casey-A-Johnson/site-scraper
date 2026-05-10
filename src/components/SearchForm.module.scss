@@ -1,0 +1,79 @@
+@import '../styles/variables';
+
+.form {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+
+  h3 {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.field {
+  margin-bottom: $spacing-md;
+
+  label {
+    display: block;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    margin-bottom: $spacing-xs;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    color: $text-primary;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-primary;
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+}
+
+.rangeWrapper {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+
+  input[type="range"] {
+    flex: 1;
+    accent-color: $accent-primary;
+  }
+
+  span {
+    font-weight: $font-weight-semibold;
+    min-width: 30px;
+    text-align: center;
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background: $accent-primary;
+  color: $bg-primary;
+  border-radius: $radius-md;
+  font-weight: $font-weight-semibold;
+  margin-top: $spacing-sm;
+  transition: opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

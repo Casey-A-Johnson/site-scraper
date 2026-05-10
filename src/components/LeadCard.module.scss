@@ -1,0 +1,177 @@
+@import '../styles/variables';
+
+.card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: $border-light;
+  }
+}
+
+.screenshot {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: $bg-secondary;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+.body {
+  padding: $spacing-lg;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+
+  h3 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    line-height: 1.3;
+  }
+}
+
+.score {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+
+  &.bad {
+    background: rgba($accent-danger, 0.15);
+    color: $accent-danger;
+  }
+
+  &.mid {
+    background: rgba($accent-primary, 0.15);
+    color: $accent-primary;
+  }
+
+  &.good {
+    background: rgba($accent-success, 0.15);
+    color: $accent-success;
+  }
+
+  &.neutral {
+    background: rgba($text-muted, 0.15);
+    color: $text-muted;
+  }
+}
+
+.address {
+  font-size: $font-size-xs;
+  color: $text-secondary;
+  margin-bottom: $spacing-sm;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+
+  span {
+    font-size: $font-size-xs;
+    color: $text-secondary;
+  }
+}
+
+.websiteLink {
+  display: block;
+  font-size: $font-size-xs;
+  color: $accent-secondary;
+  margin-bottom: $spacing-md;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.detailsBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: $bg-hover;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  color: $text-secondary;
+
+  &:hover {
+    color: $text-primary;
+    border-color: $border-light;
+  }
+}
+
+.copyBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: rgba($accent-primary, 0.15);
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  color: $accent-primary;
+
+  &:hover {
+    background: rgba($accent-primary, 0.25);
+  }
+}
+
+.details {
+  margin-top: $spacing-lg;
+  padding-top: $spacing-lg;
+  border-top: 1px solid $border-color;
+
+  h4 {
+    font-size: $font-size-sm;
+    margin: $spacing-md 0 $spacing-sm;
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: $spacing-lg;
+
+    li {
+      font-size: $font-size-xs;
+      color: $text-secondary;
+      margin-bottom: $spacing-xs;
+    }
+  }
+}
+
+.summary {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  line-height: 1.5;
+}
+
+.outreach {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  font-size: $font-size-xs;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: $text-secondary;
+  max-height: 200px;
+  overflow-y: auto;
+}
