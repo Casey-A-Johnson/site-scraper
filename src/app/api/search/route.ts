@@ -7,11 +7,13 @@ import { db } from "@/db";
 import { searches, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-const connection = new IORedis(process.env.REDIS_URL!, {
-  maxRetriesPerRequest: null,
-});
-
-const scrapeQueue = new Queue("scrape-queue", { connection });
+function getQueue() {
+  const connection = new IORedis(process.env.REDIS_URL!, {
+    maxRetriesPerRequest: null,
+    tls: process.env.REDIS_URL!.startsWith("rediss://") ? {} : undefined,
+  });
+  return new Queue("scrape-queue", { connection });
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,6 +59,7 @@ export async function POST(req: NextRequest) {
       .returning();
 
     // Queue the scraping job
+    const scrapeQueue = getQueue();
     await scrapeQueue.add("scrape", {
       searchId: search.id,
       userId,
