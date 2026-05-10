@@ -15,6 +15,7 @@ const db = drizzle(sql, { schema });
 
 const connection = new IORedis(process.env.REDIS_URL!, {
   maxRetriesPerRequest: null,
+  tls: process.env.REDIS_URL!.startsWith("rediss://") ? {} : undefined,
 });
 
 const worker = new Worker(
@@ -25,6 +26,22 @@ const worker = new Worker(
     console.log(`[Worker] Starting search: ${niche} in ${city}`);
 
     try {
+      // Verify user exists
+      const [user] = await db
+        .select()
+        .from(schema.users)
+        .where(eq(schema.users.id, userId))
+        .limit(1);
+
+      if (!user) {
+        console.error(`[Worker] User ${userId} not found in database. Skipping.`);
+        await db
+          .update(schema.searches)
+          .set({ status: "failed" })
+          .where(eq(schema.searches.id, searchId));
+        return;
+      }
+
       // Step 1: Search Google Places
       const businesses = await searchBusinesses(city, niche, resultsRequested);
 
@@ -106,18 +123,10 @@ const worker = new Worker(
         .where(eq(schema.searches.id, searchId));
 
       // Deduct credits
-      const [user] = await db
-        .select()
-        .from(schema.users)
-        .where(eq(schema.users.id, userId))
-        .limit(1);
-
-      if (user) {
-        await db
-          .update(schema.users)
-          .set({ credits: user.credits - businesses.length })
-          .where(eq(schema.users.id, userId));
-      }
+      await db
+        .update(schema.users)
+        .set({ credits: user.credits - businesses.length })
+        .where(eq(schema.users.id, userId));
 
       console.log(`[Worker] Search completed: ${searchId}`);
     } catch (error) {
