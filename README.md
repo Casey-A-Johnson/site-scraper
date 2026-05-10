@@ -1,4 +1,4 @@
-# Site Scraper
+# Site Scraper #
 
 AI-powered web scraper that crawls Google Maps to find local businesses with bad websites, analyzes them with OpenAI, and generates personalized outreach messages.
 
