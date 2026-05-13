@@ -1,0 +1,201 @@
+@import '../../styles/variables';
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: $spacing-3xl $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+}
+
+// ── Section ──
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: $text-muted;
+
+  h3 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+  }
+}
+
+// ── Card ──
+
+.card {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  padding: 0;
+  overflow: hidden;
+}
+
+// ── Fields ──
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.fieldLabel {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.fieldValue {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: $font-size-sm;
+  color: $text-primary;
+
+  svg {
+    color: $text-muted;
+  }
+}
+
+.planBadge {
+  background: $bg-hover;
+  padding: 2px 8px;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $accent-primary;
+  border: 1px solid rgba(62, 207, 142, 0.2);
+}
+
+// ── Toggle Rows ──
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.toggleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toggleLabel {
+  font-size: $font-size-sm;
+  color: $text-primary;
+}
+
+.toggleDesc {
+  font-size: $font-size-xs;
+  color: $text-muted;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggleSlider {
+      background: $accent-primary;
+    }
+
+    &:checked + .toggleSlider::before {
+      transform: translateX(16px);
+    }
+  }
+}
+
+.toggleSlider {
+  position: absolute;
+  inset: 0;
+  background: $bg-hover;
+  border-radius: $radius-full;
+  border: 1px solid $border-light;
+  transition: background 0.2s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $text-primary;
+    transition: transform 0.2s ease;
+  }
+}
+
+// ── Buttons ──
+
+.secondaryBtn {
+  padding: $spacing-xs $spacing-md;
+  background: transparent;
+  border: 1px solid $border-light;
+  border-radius: $radius-sm;
+  color: $text-secondary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: $bg-hover;
+    color: $text-primary;
+  }
+}
+
+// ── Danger Zone ──
+
+.dangerZone {
+  padding-top: $spacing-md;
+  border-top: 1px solid $border-color;
+}
+
+.signOutBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  background: transparent;
+  border: 1px solid rgba(245, 101, 101, 0.3);
+  border-radius: $radius-sm;
+  color: $accent-danger;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(245, 101, 101, 0.08);
+  }
+}

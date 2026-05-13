@@ -1,0 +1,208 @@
+@import '../../styles/variables';
+
+.container {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: $spacing-3xl $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+}
+
+// ── Balance Card ──
+
+.balanceCard {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.balanceInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.balanceIcon {
+  color: $accent-primary;
+}
+
+.balanceLabel {
+  font-size: $font-size-xs;
+  color: $text-muted;
+  margin-bottom: 2px;
+}
+
+.balanceAmount {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+}
+
+.balanceHint {
+  font-size: $font-size-xs;
+  color: $text-secondary;
+  border-top: 1px solid $border-color;
+  padding-top: $spacing-md;
+}
+
+// ── Plans Section ──
+
+.plansSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.planCard {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  position: relative;
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: $border-light;
+  }
+}
+
+.planPopular {
+  border-color: $accent-primary;
+
+  &:hover {
+    border-color: $accent-primary;
+  }
+}
+
+.popularBadge {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $accent-primary;
+  color: #000;
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+  padding: 2px 8px;
+  border-radius: $radius-full;
+  white-space: nowrap;
+}
+
+.planName {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.planCredits {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.planAmount {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+}
+
+.planUnit {
+  font-size: $font-size-xs;
+  color: $text-muted;
+}
+
+.planPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: $spacing-sm;
+}
+
+.priceAmount {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+}
+
+.pricePer {
+  font-size: $font-size-xs;
+  color: $text-muted;
+}
+
+.buyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background: $accent-primary;
+  color: #000;
+  border: none;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+// ── Features Section ──
+
+.featuresSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-sm;
+    color: $text-secondary;
+
+    svg {
+      color: $accent-primary;
+      flex-shrink: 0;
+    }
+  }
+}

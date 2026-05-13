@@ -15,8 +15,8 @@ const navItems = [
 ];
 
 const bottomItems = [
-  { icon: CreditCard, label: "Credits", href: "#" },
-  { icon: Settings, label: "Settings", href: "#" },
+  { icon: CreditCard, label: "Credits", href: "/credits" },
+  { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
 export function Sidebar() {
@@ -39,9 +39,9 @@ export function Sidebar() {
         <div className={styles.railDivider} />
         {bottomItems.map((item) => (
           <div
-            key={item.label}
-            className={styles.railItem}
-            onClick={() => item.href !== "#" && router.push(item.href)}
+            key={item.href}
+            className={`${styles.railItem} ${pathname.startsWith(item.href) ? styles.railItemActive : ""}`}
+            onClick={() => router.push(item.href)}
           >
             <item.icon size={18} />
             <span>{item.label}</span>
