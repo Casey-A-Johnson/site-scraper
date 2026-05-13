@@ -1,27 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./dashboard.module.scss";
-import { SearchForm } from "@/components/SearchForm";
 import { LeadCard } from "@/components/LeadCard";
 import {
-  Search,
-  Clock,
-  ChevronDown,
-  ChevronRight,
-  MapPin,
   Download,
-  CheckCircle2,
-  Loader2,
-  XCircle,
-  CircleDot,
   LayoutDashboard,
   SearchCode,
-  History,
   Settings,
   CreditCard,
+  ArrowLeft,
 } from "lucide-react";
 
 interface Lead {
@@ -41,24 +31,13 @@ interface Lead {
   createdAt: string;
 }
 
-interface Search {
-  id: string;
-  city: string;
-  niche: string;
-  resultsRequested: number;
-  resultsFound: number;
-  status: string;
-  createdAt: string;
-}
-
-export default function DashboardPage() {
+function DashboardContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchId = searchParams.get("searchId");
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [searches, setSearches] = useState<Search[]>([]);
-  const [activeSearch, setActiveSearch] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [historyOpen, setHistoryOpen] = useState(true);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -67,53 +46,17 @@ export default function DashboardPage() {
   }, [status, router]);
 
   useEffect(() => {
-    if (session) {
-      fetchSearches();
+    if (session && searchId) {
+      fetchLeads(searchId);
     }
-  }, [session]);
+  }, [session, searchId]);
 
-  const fetchSearches = async () => {
-    const res = await fetch("/api/search");
-    const data = await res.json();
-    setSearches(data);
-  };
-
-  const fetchLeads = async (searchId: string) => {
+  const fetchLeads = async (id: string) => {
     setLoading(true);
-    const res = await fetch(`/api/leads?searchId=${searchId}`);
+    const res = await fetch(`/api/leads?searchId=${id}`);
     const data = await res.json();
     setLeads(data);
-    setActiveSearch(searchId);
     setLoading(false);
-  };
-
-  const handleNewSearch = async (city: string, niche: string, count: number) => {
-    const res = await fetch("/api/search", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ city, niche, resultsRequested: count }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      fetchSearches();
-      // Poll for results
-      pollSearch(data.searchId);
-    }
-  };
-
-  const pollSearch = (searchId: string) => {
-    const interval = setInterval(async () => {
-      const res = await fetch("/api/search");
-      const data = await res.json();
-      const search = data.find((s: Search) => s.id === searchId);
-
-      if (search?.status === "completed" || search?.status === "failed") {
-        clearInterval(interval);
-        fetchSearches();
-        fetchLeads(searchId);
-      }
-    }, 5000);
   };
 
   const handleExportCSV = () => {
@@ -149,15 +92,6 @@ export default function DashboardPage() {
     a.click();
   };
 
-  const statusIcon = (s: string) => {
-    switch (s) {
-      case "completed": return <CheckCircle2 size={12} />;
-      case "processing": return <Loader2 size={12} className={styles.spin} />;
-      case "failed": return <XCircle size={12} />;
-      default: return <CircleDot size={12} />;
-    }
-  };
-
   if (status === "loading") {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -165,7 +99,7 @@ export default function DashboardPage() {
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>
-        <h1>Dashboard</h1>
+        <h1>Results</h1>
         <div className={styles.headerRight}>
           <span className={styles.credits}>Credits: --</span>
         </div>
@@ -174,17 +108,13 @@ export default function DashboardPage() {
       <div className={styles.content}>
         <aside className={styles.sidebar}>
           <nav className={styles.iconRail}>
-            <div className={styles.railItem}>
-              <LayoutDashboard size={18} />
-              <span>Dashboard</span>
-            </div>
-            <div className={styles.railItem}>
+            <div className={styles.railItem} onClick={() => router.push("/search")}>
               <SearchCode size={18} />
-              <span>New Search</span>
+              <span>Search</span>
             </div>
-            <div className={styles.railItem}>
-              <History size={18} />
-              <span>History</span>
+            <div className={`${styles.railItem} ${styles.railItemActive}`}>
+              <LayoutDashboard size={18} />
+              <span>Results</span>
             </div>
             <div className={styles.railDivider} />
             <div className={styles.railItem}>
@@ -196,55 +126,21 @@ export default function DashboardPage() {
               <span>Settings</span>
             </div>
           </nav>
-
-          <div className={styles.sidebarContent}>
-            <SearchForm onSearch={handleNewSearch} />
-
-            <div className={styles.searchHistory}>
-              <button
-                className={styles.historyToggle}
-                onClick={() => setHistoryOpen(!historyOpen)}
-              >
-                {historyOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                <Clock size={14} />
-                <span>Recent Searches</span>
-                <span className={styles.historyCount}>{searches.length}</span>
-              </button>
-
-              {historyOpen && (
-                <div className={styles.historyList}>
-                  {searches.map((search) => (
-                    <button
-                      key={search.id}
-                      className={`${styles.searchItem} ${activeSearch === search.id ? styles.active : ""}`}
-                      onClick={() => fetchLeads(search.id)}
-                    >
-                      <div className={styles.searchItemTop}>
-                        <Search size={13} className={styles.searchIcon} />
-                        <span className={styles.searchNiche}>{search.niche}</span>
-                        <span className={`${styles.searchStatus} ${styles[search.status]}`}>
-                          {statusIcon(search.status)}
-                        </span>
-                      </div>
-                      <div className={styles.searchItemBottom}>
-                        <MapPin size={11} className={styles.searchCityIcon} />
-                        <span className={styles.searchCity}>{search.city}</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
         </aside>
 
         <main className={styles.main}>
           <div className={styles.toolbar}>
-            <h2>
-              {activeSearch
-                ? `Results (${leads.length})`
-                : "Select a search to view results"}
-            </h2>
+            <div className={styles.toolbarLeft}>
+              <button className={styles.backBtn} onClick={() => router.push("/search")}>
+                <ArrowLeft size={14} />
+                Back to Search
+              </button>
+              <h2>
+                {searchId
+                  ? `Results (${leads.length})`
+                  : "No search selected"}
+              </h2>
+            </div>
             {leads.length > 0 && (
               <button className={styles.exportBtn} onClick={handleExportCSV}>
                 <Download size={13} />
@@ -253,7 +149,11 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {loading ? (
+          {!searchId ? (
+            <div className={styles.emptyState}>
+              <p>No search selected. Go to the <a onClick={() => router.push("/search")}>search page</a> to start.</p>
+            </div>
+          ) : loading ? (
             <div className={styles.loading}>Loading results...</div>
           ) : (
             <div className={styles.leadGrid}>
@@ -265,5 +165,13 @@ export default function DashboardPage() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }

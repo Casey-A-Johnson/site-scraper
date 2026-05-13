@@ -1,0 +1,228 @@
+@import '../../styles/variables';
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg-primary;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-xl;
+  border-bottom: 1px solid $border-color;
+  background: $bg-secondary;
+  height: 48px;
+
+  h1 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    letter-spacing: -0.01em;
+  }
+}
+
+.credits {
+  background: transparent;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  font-size: $font-size-xs;
+  color: $accent-primary;
+  border: 1px solid $border-light;
+}
+
+.container {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: $spacing-3xl $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3xl;
+}
+
+.searchSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.searchCard {
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+}
+
+.pollingBanner {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  background: rgba(62, 207, 142, 0.08);
+  border: 1px solid rgba(62, 207, 142, 0.2);
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  color: $accent-primary;
+}
+
+// ── History Section ──
+
+.historySection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.historyHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: $text-muted;
+
+  h2 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    flex: 1;
+  }
+}
+
+.historyCount {
+  background: $bg-hover;
+  padding: 2px 8px;
+  border-radius: 9px;
+  font-size: 10px;
+  color: $text-secondary;
+  font-weight: $font-weight-medium;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-3xl;
+  color: $text-muted;
+
+  p {
+    font-size: $font-size-sm;
+  }
+}
+
+.historyGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.historyItem {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    border-color: $border-light;
+    background: $bg-hover;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+}
+
+.historyItemTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-sm;
+}
+
+.historyInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.historyIcon {
+  color: $text-muted;
+  flex-shrink: 0;
+}
+
+.historyNiche {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+}
+
+.historyStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+
+  &.completed { color: $accent-success; }
+  &.processing { color: $accent-warning; }
+  &.failed { color: $accent-danger; }
+  &.pending { color: $text-muted; }
+}
+
+.historyMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+}
+
+.historyCity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: $font-size-xs;
+  color: $text-secondary;
+}
+
+.historyDate {
+  font-size: $font-size-xs;
+  color: $text-muted;
+}
+
+.historyFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: $spacing-sm;
+  border-top: 1px solid $border-color;
+  font-size: $font-size-xs;
+  color: $accent-primary;
+}
+
+// ── Utilities ──
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: $text-muted;
+  font-size: $font-size-sm;
+}

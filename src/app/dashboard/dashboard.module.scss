@@ -43,6 +43,8 @@
   position: relative;
 }
 
+// ── Sidebar (nav-only) ──
+
 .sidebar {
   position: absolute;
   top: 0;
@@ -56,17 +58,12 @@
   transition: width 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
-    width: 280px;
+    width: 200px;
     overflow-y: auto;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
 
     .railItem span {
       opacity: 1;
-    }
-
-    .sidebarContent {
-      opacity: 1;
-      pointer-events: auto;
     }
   }
 }
@@ -107,152 +104,18 @@
   }
 }
 
+.railItemActive {
+  color: $text-primary;
+  background: $bg-hover;
+}
+
 .railDivider {
   height: 1px;
   background: $border-color;
   margin: 6px 7px;
 }
 
-.sidebarContent {
-  padding: $spacing-sm $spacing-md $spacing-md;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease 0.05s;
-}
-
-.searchHistory {
-  margin-top: $spacing-md;
-}
-
-.historyToggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: $spacing-sm;
-  border-radius: $radius-sm;
-  font-size: $font-size-xs;
-  color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: $font-weight-medium;
-  transition: background 0.15s ease, color 0.15s ease;
-  text-align: left;
-
-  &:hover {
-    background: $bg-hover;
-    color: $text-primary;
-  }
-
-  span:first-of-type {
-    flex: 1;
-  }
-}
-
-.historyCount {
-  background: $bg-hover;
-  padding: 1px 6px;
-  border-radius: 9px;
-  font-size: 10px;
-  color: $text-secondary;
-}
-
-.historyList {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  margin-top: 2px;
-}
-
-.searchItem {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: $spacing-sm $spacing-sm $spacing-sm calc($spacing-sm + 20px);
-  border-radius: $radius-sm;
-  transition: background 0.15s ease;
-  text-align: left;
-  border: 1px solid transparent;
-
-  &:hover {
-    background: $bg-hover;
-  }
-
-  &.active {
-    background: $bg-hover;
-    border-color: $border-light;
-  }
-}
-
-.searchItemTop {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.searchIcon {
-  color: $text-muted;
-  flex-shrink: 0;
-}
-
-.searchNiche {
-  font-weight: $font-weight-medium;
-  font-size: $font-size-sm;
-  color: $text-primary;
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.searchItemBottom {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 3px;
-  padding-left: 19px;
-}
-
-.searchCityIcon {
-  color: $text-muted;
-  flex-shrink: 0;
-}
-
-.searchCity {
-  font-size: $font-size-xs;
-  color: $text-secondary;
-}
-
-.searchStatus {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-
-  &.completed {
-    color: $accent-success;
-  }
-
-  &.processing {
-    color: $accent-warning;
-  }
-
-  &.failed {
-    color: $accent-danger;
-  }
-
-  &.pending {
-    color: $text-muted;
-  }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.spin {
-  animation: spin 1s linear infinite;
-}
+// ── Main ──
 
 .main {
   flex: 1;
@@ -276,6 +139,28 @@
   }
 }
 
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px $spacing-sm;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  color: $text-muted;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: $bg-hover;
+    color: $text-primary;
+  }
+}
+
 .exportBtn {
   display: flex;
   align-items: center;
@@ -290,6 +175,21 @@
 
   &:hover {
     opacity: 0.85;
+  }
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3xl;
+  color: $text-muted;
+  font-size: $font-size-sm;
+
+  a {
+    color: $accent-primary;
+    cursor: pointer;
+    text-decoration: underline;
   }
 }
 
