@@ -40,15 +40,66 @@
 .content {
   display: flex;
   flex: 1;
+  position: relative;
+}
+
+.sidebarWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: calc(100vh - 48px);
+  z-index: 100;
+
+  &:hover {
+    .sidebar {
+      transform: translateX(0);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+      overflow-y: auto;
+    }
+
+    .sidebarCollapsed {
+      opacity: 0;
+    }
+  }
 }
 
 .sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 280px;
+  height: 100%;
   border-right: 1px solid $border-color;
-  padding: $spacing-md;
-  overflow-y: auto;
-  max-height: calc(100vh - 48px);
   background: $bg-secondary;
+  transform: translateX(-280px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.sidebarCollapsed {
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid $border-color;
+  background: $bg-secondary;
+  transition: opacity 0.15s ease;
+}
+
+.collapseIcon {
+  writing-mode: vertical-rl;
+  font-size: 10px;
+  color: $text-muted;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.sidebarInner {
+  padding: $spacing-md;
+  width: 280px;
 }
 
 .searchHistory {
@@ -129,6 +180,7 @@
 .main {
   flex: 1;
   padding: $spacing-xl;
+  padding-left: calc($spacing-xl + 40px);
   overflow-y: auto;
   max-height: calc(100vh - 48px);
   background: $bg-primary;

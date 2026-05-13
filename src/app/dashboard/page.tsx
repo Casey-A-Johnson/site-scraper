@@ -145,26 +145,33 @@ export default function DashboardPage() {
       </header>
 
       <div className={styles.content}>
-        <aside className={styles.sidebar}>
-          <SearchForm onSearch={handleNewSearch} />
-
-          <div className={styles.searchHistory}>
-            <h3>Recent Searches</h3>
-            {searches.map((search) => (
-              <button
-                key={search.id}
-                className={`${styles.searchItem} ${activeSearch === search.id ? styles.active : ""}`}
-                onClick={() => fetchLeads(search.id)}
-              >
-                <span className={styles.searchNiche}>{search.niche}</span>
-                <span className={styles.searchCity}>{search.city}</span>
-                <span className={`${styles.searchStatus} ${styles[search.status]}`}>
-                  {search.status}
-                </span>
-              </button>
-            ))}
+        <div className={styles.sidebarWrap}>
+          <div className={styles.sidebarCollapsed}>
+            <span className={styles.collapseIcon}>Menu</span>
           </div>
-        </aside>
+          <aside className={styles.sidebar}>
+            <div className={styles.sidebarInner}>
+              <SearchForm onSearch={handleNewSearch} />
+
+              <div className={styles.searchHistory}>
+                <h3>Recent Searches</h3>
+                {searches.map((search) => (
+                  <button
+                    key={search.id}
+                    className={`${styles.searchItem} ${activeSearch === search.id ? styles.active : ""}`}
+                    onClick={() => fetchLeads(search.id)}
+                  >
+                    <span className={styles.searchNiche}>{search.niche}</span>
+                    <span className={styles.searchCity}>{search.city}</span>
+                    <span className={`${styles.searchStatus} ${styles[search.status]}`}>
+                      {search.status}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
 
         <main className={styles.main}>
           <div className={styles.toolbar}>
