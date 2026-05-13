@@ -43,86 +43,133 @@
   position: relative;
 }
 
-.sidebarWrap {
+.sidebar {
   position: absolute;
   top: 0;
   left: 0;
   width: 40px;
   height: calc(100vh - 48px);
+  border-right: 1px solid $border-color;
+  background: $bg-secondary;
   z-index: 100;
+  overflow: hidden;
+  transition: width 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
-    .sidebar {
-      transform: translateX(0);
-      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
-      overflow-y: auto;
+    width: 280px;
+    overflow-y: auto;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+
+    .railItem span {
+      opacity: 1;
     }
 
-    .sidebarCollapsed {
-      opacity: 0;
+    .sidebarContent {
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 }
 
-.sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
-  border-right: 1px solid $border-color;
-  background: $bg-secondary;
-  transform: translateX(-280px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  overflow: hidden;
+.iconRail {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-sm;
+  gap: 2px;
 }
 
-.sidebarCollapsed {
-  width: 40px;
-  height: 100%;
+.railItem {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-right: 1px solid $border-color;
-  background: $bg-secondary;
-  transition: opacity 0.15s ease;
-}
-
-.collapseIcon {
-  writing-mode: vertical-rl;
-  font-size: 10px;
+  gap: $spacing-sm;
+  height: 32px;
+  padding: 0 7px;
+  border-radius: $radius-sm;
   color: $text-muted;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    opacity: 0;
+    transition: opacity 0.2s ease 0.05s;
+  }
+
+  &:hover {
+    background: $bg-hover;
+    color: $text-primary;
+  }
 }
 
-.sidebarInner {
-  padding: $spacing-md;
-  width: 280px;
+.railDivider {
+  height: 1px;
+  background: $border-color;
+  margin: 6px 7px;
+}
+
+.sidebarContent {
+  padding: $spacing-sm $spacing-md $spacing-md;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease 0.05s;
 }
 
 .searchHistory {
-  margin-top: $spacing-lg;
+  margin-top: $spacing-md;
+}
 
-  h3 {
-    font-size: $font-size-xs;
-    color: $text-muted;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: $spacing-sm;
-    padding: 0 $spacing-sm;
+.historyToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: $spacing-sm;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: $font-weight-medium;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: left;
+
+  &:hover {
+    background: $bg-hover;
+    color: $text-primary;
   }
+
+  span:first-of-type {
+    flex: 1;
+  }
+}
+
+.historyCount {
+  background: $bg-hover;
+  padding: 1px 6px;
+  border-radius: 9px;
+  font-size: 10px;
+  color: $text-secondary;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 2px;
 }
 
 .searchItem {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   width: 100%;
-  padding: $spacing-sm $spacing-sm;
+  padding: $spacing-sm $spacing-sm $spacing-sm calc($spacing-sm + 20px);
   border-radius: $radius-sm;
-  margin-bottom: 2px;
   transition: background 0.15s ease;
   text-align: left;
   border: 1px solid transparent;
@@ -137,44 +184,74 @@
   }
 }
 
+.searchItemTop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.searchIcon {
+  color: $text-muted;
+  flex-shrink: 0;
+}
+
 .searchNiche {
   font-weight: $font-weight-medium;
   font-size: $font-size-sm;
   color: $text-primary;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchItemBottom {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 3px;
+  padding-left: 19px;
+}
+
+.searchCityIcon {
+  color: $text-muted;
+  flex-shrink: 0;
 }
 
 .searchCity {
   font-size: $font-size-xs;
   color: $text-secondary;
-  margin-top: 2px;
 }
 
 .searchStatus {
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: $radius-sm;
-  margin-top: $spacing-xs;
-  font-weight: $font-weight-medium;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
 
   &.completed {
-    background: rgba(62, 207, 142, 0.1);
     color: $accent-success;
   }
 
   &.processing {
-    background: rgba(234, 179, 8, 0.1);
     color: $accent-warning;
   }
 
   &.failed {
-    background: rgba(245, 101, 101, 0.1);
     color: $accent-danger;
   }
 
   &.pending {
-    background: rgba(102, 102, 102, 0.1);
     color: $text-muted;
   }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
 }
 
 .main {
@@ -200,6 +277,9 @@
 }
 
 .exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   background: $accent-primary;
   color: #111;
   padding: 6px $spacing-md;

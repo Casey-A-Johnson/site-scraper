@@ -6,6 +6,23 @@ import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.scss";
 import { SearchForm } from "@/components/SearchForm";
 import { LeadCard } from "@/components/LeadCard";
+import {
+  Search,
+  Clock,
+  ChevronDown,
+  ChevronRight,
+  MapPin,
+  Download,
+  CheckCircle2,
+  Loader2,
+  XCircle,
+  CircleDot,
+  LayoutDashboard,
+  SearchCode,
+  History,
+  Settings,
+  CreditCard,
+} from "lucide-react";
 
 interface Lead {
   id: string;
@@ -41,6 +58,7 @@ export default function DashboardPage() {
   const [searches, setSearches] = useState<Search[]>([]);
   const [activeSearch, setActiveSearch] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(true);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -131,6 +149,15 @@ export default function DashboardPage() {
     a.click();
   };
 
+  const statusIcon = (s: string) => {
+    switch (s) {
+      case "completed": return <CheckCircle2 size={12} />;
+      case "processing": return <Loader2 size={12} className={styles.spin} />;
+      case "failed": return <XCircle size={12} />;
+      default: return <CircleDot size={12} />;
+    }
+  };
+
   if (status === "loading") {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -145,33 +172,71 @@ export default function DashboardPage() {
       </header>
 
       <div className={styles.content}>
-        <div className={styles.sidebarWrap}>
-          <div className={styles.sidebarCollapsed}>
-            <span className={styles.collapseIcon}>Menu</span>
-          </div>
-          <aside className={styles.sidebar}>
-            <div className={styles.sidebarInner}>
-              <SearchForm onSearch={handleNewSearch} />
-
-              <div className={styles.searchHistory}>
-                <h3>Recent Searches</h3>
-                {searches.map((search) => (
-                  <button
-                    key={search.id}
-                    className={`${styles.searchItem} ${activeSearch === search.id ? styles.active : ""}`}
-                    onClick={() => fetchLeads(search.id)}
-                  >
-                    <span className={styles.searchNiche}>{search.niche}</span>
-                    <span className={styles.searchCity}>{search.city}</span>
-                    <span className={`${styles.searchStatus} ${styles[search.status]}`}>
-                      {search.status}
-                    </span>
-                  </button>
-                ))}
-              </div>
+        <aside className={styles.sidebar}>
+          <nav className={styles.iconRail}>
+            <div className={styles.railItem}>
+              <LayoutDashboard size={18} />
+              <span>Dashboard</span>
             </div>
-          </aside>
-        </div>
+            <div className={styles.railItem}>
+              <SearchCode size={18} />
+              <span>New Search</span>
+            </div>
+            <div className={styles.railItem}>
+              <History size={18} />
+              <span>History</span>
+            </div>
+            <div className={styles.railDivider} />
+            <div className={styles.railItem}>
+              <CreditCard size={18} />
+              <span>Credits</span>
+            </div>
+            <div className={styles.railItem}>
+              <Settings size={18} />
+              <span>Settings</span>
+            </div>
+          </nav>
+
+          <div className={styles.sidebarContent}>
+            <SearchForm onSearch={handleNewSearch} />
+
+            <div className={styles.searchHistory}>
+              <button
+                className={styles.historyToggle}
+                onClick={() => setHistoryOpen(!historyOpen)}
+              >
+                {historyOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                <Clock size={14} />
+                <span>Recent Searches</span>
+                <span className={styles.historyCount}>{searches.length}</span>
+              </button>
+
+              {historyOpen && (
+                <div className={styles.historyList}>
+                  {searches.map((search) => (
+                    <button
+                      key={search.id}
+                      className={`${styles.searchItem} ${activeSearch === search.id ? styles.active : ""}`}
+                      onClick={() => fetchLeads(search.id)}
+                    >
+                      <div className={styles.searchItemTop}>
+                        <Search size={13} className={styles.searchIcon} />
+                        <span className={styles.searchNiche}>{search.niche}</span>
+                        <span className={`${styles.searchStatus} ${styles[search.status]}`}>
+                          {statusIcon(search.status)}
+                        </span>
+                      </div>
+                      <div className={styles.searchItemBottom}>
+                        <MapPin size={11} className={styles.searchCityIcon} />
+                        <span className={styles.searchCity}>{search.city}</span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </aside>
 
         <main className={styles.main}>
           <div className={styles.toolbar}>
@@ -182,6 +247,7 @@ export default function DashboardPage() {
             </h2>
             {leads.length > 0 && (
               <button className={styles.exportBtn} onClick={handleExportCSV}>
+                <Download size={13} />
                 Export CSV
               </button>
             )}
