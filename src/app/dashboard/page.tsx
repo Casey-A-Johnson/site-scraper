@@ -4,15 +4,9 @@ import { useState, useEffect, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./dashboard.module.scss";
+import { AppShell } from "@/components/AppShell";
 import { LeadCard } from "@/components/LeadCard";
-import {
-  Download,
-  LayoutDashboard,
-  SearchCode,
-  Settings,
-  CreditCard,
-  ArrowLeft,
-} from "lucide-react";
+import { Download, ArrowLeft } from "lucide-react";
 
 interface Lead {
   id: string;
@@ -38,12 +32,6 @@ function DashboardContent() {
   const searchId = searchParams.get("searchId");
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
 
   useEffect(() => {
     if (session && searchId) {
@@ -92,79 +80,42 @@ function DashboardContent() {
     a.click();
   };
 
-  if (status === "loading") {
-    return <div className={styles.loading}>Loading...</div>;
-  }
-
   return (
-    <div className={styles.dashboard}>
-      <header className={styles.header}>
-        <h1>Results</h1>
-        <div className={styles.headerRight}>
-          <span className={styles.credits}>Credits: --</span>
+    <AppShell title="Results">
+      <div className={styles.toolbar}>
+        <div className={styles.toolbarLeft}>
+          <button className={styles.backBtn} onClick={() => router.push("/search")}>
+            <ArrowLeft size={14} />
+            Back to Search
+          </button>
+          <h2>
+            {searchId
+              ? `Results (${leads.length})`
+              : "No search selected"}
+          </h2>
         </div>
-      </header>
-
-      <div className={styles.content}>
-        <aside className={styles.sidebar}>
-          <nav className={styles.iconRail}>
-            <div className={styles.railItem} onClick={() => router.push("/search")}>
-              <SearchCode size={18} />
-              <span>Search</span>
-            </div>
-            <div className={`${styles.railItem} ${styles.railItemActive}`}>
-              <LayoutDashboard size={18} />
-              <span>Results</span>
-            </div>
-            <div className={styles.railDivider} />
-            <div className={styles.railItem}>
-              <CreditCard size={18} />
-              <span>Credits</span>
-            </div>
-            <div className={styles.railItem}>
-              <Settings size={18} />
-              <span>Settings</span>
-            </div>
-          </nav>
-        </aside>
-
-        <main className={styles.main}>
-          <div className={styles.toolbar}>
-            <div className={styles.toolbarLeft}>
-              <button className={styles.backBtn} onClick={() => router.push("/search")}>
-                <ArrowLeft size={14} />
-                Back to Search
-              </button>
-              <h2>
-                {searchId
-                  ? `Results (${leads.length})`
-                  : "No search selected"}
-              </h2>
-            </div>
-            {leads.length > 0 && (
-              <button className={styles.exportBtn} onClick={handleExportCSV}>
-                <Download size={13} />
-                Export CSV
-              </button>
-            )}
-          </div>
-
-          {!searchId ? (
-            <div className={styles.emptyState}>
-              <p>No search selected. Go to the <a onClick={() => router.push("/search")}>search page</a> to start.</p>
-            </div>
-          ) : loading ? (
-            <div className={styles.loading}>Loading results...</div>
-          ) : (
-            <div className={styles.leadGrid}>
-              {leads.map((lead) => (
-                <LeadCard key={lead.id} lead={lead} />
-              ))}
-            </div>
-          )}
-        </main>
+        {leads.length > 0 && (
+          <button className={styles.exportBtn} onClick={handleExportCSV}>
+            <Download size={13} />
+            Export CSV
+          </button>
+        )}
       </div>
-    </div>
+
+      {!searchId ? (
+        <div className={styles.emptyState}>
+          <p>No search selected. Go to the <a onClick={() => router.push("/search")}>search page</a> to start.</p>
+        </div>
+      ) : loading ? (
+        <div className={styles.loading}>Loading results...</div>
+      ) : (
+        <div className={styles.leadGrid}>
+          {leads.map((lead) => (
+            <LeadCard key={lead.id} lead={lead} />
+          ))}
+        </div>
+      )}
+    </AppShell>
   );
 }
 

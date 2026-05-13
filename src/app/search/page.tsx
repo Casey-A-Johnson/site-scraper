@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import styles from "./search.module.scss";
+import { AppShell } from "@/components/AppShell";
 import { SearchForm } from "@/components/SearchForm";
 import {
   Search,
@@ -27,16 +28,10 @@ interface SearchRecord {
 }
 
 export default function SearchPage() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [searches, setSearches] = useState<SearchRecord[]>([]);
   const [polling, setPolling] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
 
   useEffect(() => {
     if (session) {
@@ -101,17 +96,8 @@ export default function SearchPage() {
     });
   };
 
-  if (status === "loading") {
-    return <div className={styles.loading}>Loading...</div>;
-  }
-
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <h1>Site Scraper</h1>
-        <span className={styles.credits}>Credits: --</span>
-      </header>
-
+    <AppShell title="Search">
       <div className={styles.container}>
         <div className={styles.searchSection}>
           <div className={styles.searchCard}>
@@ -182,6 +168,6 @@ export default function SearchPage() {
           )}
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

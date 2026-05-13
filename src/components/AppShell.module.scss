@@ -1,0 +1,62 @@
+@import '../styles/variables';
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-xl;
+  border-bottom: 1px solid $border-color;
+  background: $bg-secondary;
+  height: 48px;
+
+  h1 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    letter-spacing: -0.01em;
+  }
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.credits {
+  background: transparent;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  font-size: $font-size-xs;
+  color: $accent-primary;
+  border: 1px solid $border-light;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.main {
+  flex: 1;
+  padding: $spacing-xl;
+  padding-left: calc($spacing-xl + 40px);
+  overflow-y: auto;
+  max-height: calc(100vh - 48px);
+  background: $bg-primary;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: $text-muted;
+  font-size: $font-size-sm;
+}
