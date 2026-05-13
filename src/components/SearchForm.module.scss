@@ -1,38 +1,44 @@
 @import '../styles/variables';
 
 .form {
-  background: $bg-card;
+  background: transparent;
   border: 1px solid $border-color;
-  border-radius: $radius-lg;
-  padding: $spacing-lg;
+  border-radius: $radius-md;
+  padding: $spacing-md;
 
   h3 {
-    font-size: $font-size-lg;
-    margin-bottom: $spacing-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-md;
+    color: $text-primary;
   }
 }
 
 .field {
-  margin-bottom: $spacing-md;
+  margin-bottom: $spacing-sm;
 
   label {
     display: block;
-    font-size: $font-size-sm;
-    color: $text-secondary;
-    margin-bottom: $spacing-xs;
+    font-size: $font-size-xs;
+    color: $text-muted;
+    margin-bottom: 4px;
+    font-weight: $font-weight-medium;
   }
 
   input[type="text"] {
     width: 100%;
-    padding: $spacing-sm $spacing-md;
-    background: $bg-secondary;
-    border: 1px solid $border-color;
-    border-radius: $radius-md;
+    padding: 6px $spacing-sm;
+    background: $bg-primary;
+    border: 1px solid $border-light;
+    border-radius: $radius-sm;
     color: $text-primary;
+    font-size: $font-size-sm;
+    transition: border-color 0.15s ease;
 
     &:focus {
       outline: none;
       border-color: $accent-primary;
+      box-shadow: 0 0 0 1px rgba(62, 207, 142, 0.2);
     }
 
     &::placeholder {
@@ -44,36 +50,40 @@
 .rangeWrapper {
   display: flex;
   align-items: center;
-  gap: $spacing-md;
+  gap: $spacing-sm;
 
   input[type="range"] {
     flex: 1;
     accent-color: $accent-primary;
+    height: 4px;
   }
 
   span {
-    font-weight: $font-weight-semibold;
-    min-width: 30px;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    min-width: 24px;
     text-align: center;
+    color: $text-secondary;
   }
 }
 
 .submitBtn {
   width: 100%;
-  padding: $spacing-sm $spacing-md;
+  padding: 6px $spacing-md;
   background: $accent-primary;
-  color: $bg-primary;
-  border-radius: $radius-md;
-  font-weight: $font-weight-semibold;
+  color: #111;
+  border-radius: $radius-sm;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-sm;
   margin-top: $spacing-sm;
-  transition: opacity 0.2s;
+  transition: opacity 0.15s ease;
 
   &:hover:not(:disabled) {
-    opacity: 0.9;
+    opacity: 0.85;
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.4;
     cursor: not-allowed;
   }
 }

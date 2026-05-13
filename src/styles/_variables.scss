@@ -1,20 +1,22 @@
-// Colors
-$bg-primary: #0a0a0a;
-$bg-secondary: #141414;
-$bg-card: #1a1a1a;
-$bg-hover: #222222;
+// Colors - Supabase-inspired
+$bg-primary: #171717;
+$bg-secondary: #1c1c1c;
+$bg-card: #232323;
+$bg-hover: #2a2a2a;
+$bg-surface: #1c1c1c;
 
-$accent-primary: #f5a623;
-$accent-secondary: #00d4aa;
-$accent-danger: #e74c3c;
-$accent-success: #2ecc71;
+$accent-primary: #3ECF8E;
+$accent-secondary: #3ECF8E;
+$accent-danger: #f56565;
+$accent-success: #3ECF8E;
+$accent-warning: #eab308;
 
-$text-primary: #ffffff;
-$text-secondary: #a0a0a0;
+$text-primary: #ededed;
+$text-secondary: #a1a1a1;
 $text-muted: #666666;
 
-$border-color: #2a2a2a;
-$border-light: #333333;
+$border-color: rgba(255, 255, 255, 0.06);
+$border-light: rgba(255, 255, 255, 0.1);
 
 // Typography
 $font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

@@ -2,31 +2,35 @@
 
 .landing {
   min-height: 100vh;
+  background: $bg-primary;
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-lg $spacing-xl;
+  padding: $spacing-md $spacing-xl;
   max-width: 1200px;
   margin: 0 auto;
+  border-bottom: 1px solid $border-color;
 }
 
 .logo {
-  font-size: $font-size-xl;
-  font-weight: $font-weight-bold;
-  color: $accent-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+  letter-spacing: -0.02em;
 }
 
 .navLinks {
   display: flex;
   align-items: center;
-  gap: $spacing-lg;
+  gap: $spacing-md;
 
   a {
     color: $text-secondary;
-    transition: color 0.2s;
+    font-size: $font-size-sm;
+    transition: color 0.15s ease;
 
     &:hover {
       color: $text-primary;
@@ -36,32 +40,36 @@
 
 .ctaBtn {
   background: $accent-primary;
-  color: $bg-primary !important;
-  padding: $spacing-sm $spacing-lg;
-  border-radius: $radius-md;
-  font-weight: $font-weight-semibold;
+  color: #111 !important;
+  padding: 6px $spacing-md;
+  border-radius: $radius-sm;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-sm;
+  transition: opacity 0.15s ease;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.85;
   }
 }
 
 .hero {
   text-align: center;
-  padding: $spacing-3xl $spacing-xl;
-  max-width: 800px;
+  padding: 80px $spacing-xl 60px;
+  max-width: 720px;
   margin: 0 auto;
 
   h1 {
-    font-size: $font-size-4xl;
-    font-weight: $font-weight-bold;
-    line-height: 1.2;
+    font-size: 2.75rem;
+    font-weight: $font-weight-semibold;
+    line-height: 1.15;
     margin-bottom: $spacing-lg;
+    letter-spacing: -0.03em;
+    color: $text-primary;
 
     span {
-      background: $accent-primary;
-      color: $bg-primary;
-      padding: 0 $spacing-sm;
+      color: $accent-primary;
+      background: none;
+      padding: 0;
     }
   }
 
@@ -69,32 +77,33 @@
     font-size: $font-size-lg;
     color: $text-secondary;
     margin-bottom: $spacing-xl;
+    line-height: 1.6;
   }
 }
 
 .heroBtn {
   display: inline-block;
   background: $accent-primary;
-  color: $bg-primary;
-  padding: $spacing-md $spacing-2xl;
-  border-radius: $radius-md;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  transition: transform 0.2s, opacity 0.2s;
+  color: #111;
+  padding: 10px $spacing-xl;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  transition: opacity 0.15s ease, transform 0.15s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    opacity: 0.85;
+    transform: translateY(-1px);
   }
 }
 
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-xl;
-  max-width: 1200px;
+  gap: $spacing-md;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: $spacing-3xl $spacing-xl;
+  padding: $spacing-2xl $spacing-xl;
 
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
@@ -102,19 +111,26 @@
 }
 
 .feature {
-  background: $bg-card;
+  background: $bg-secondary;
   border: 1px solid $border-color;
-  border-radius: $radius-lg;
-  padding: $spacing-xl;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: $border-light;
+  }
 
   h3 {
-    font-size: $font-size-xl;
-    margin-bottom: $spacing-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-xs;
     color: $accent-primary;
   }
 
   p {
-    color: $text-secondary;
-    font-size: $font-size-sm;
+    color: $text-muted;
+    font-size: $font-size-xs;
+    line-height: 1.5;
   }
 }

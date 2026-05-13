@@ -10,27 +10,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-lg $spacing-xl;
+  padding: $spacing-md $spacing-xl;
   border-bottom: 1px solid $border-color;
+  background: $bg-secondary;
+  height: 48px;
 
   h1 {
-    font-size: $font-size-2xl;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    letter-spacing: -0.01em;
   }
 }
 
 .headerRight {
   display: flex;
   align-items: center;
-  gap: $spacing-lg;
+  gap: $spacing-md;
 }
 
 .credits {
-  background: $bg-card;
-  padding: $spacing-xs $spacing-md;
-  border-radius: $radius-full;
-  font-size: $font-size-sm;
+  background: transparent;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  font-size: $font-size-xs;
   color: $accent-primary;
-  border: 1px solid $border-color;
+  border: 1px solid $border-light;
 }
 
 .content {
@@ -39,22 +43,24 @@
 }
 
 .sidebar {
-  width: 320px;
+  width: 280px;
   border-right: 1px solid $border-color;
-  padding: $spacing-lg;
+  padding: $spacing-md;
   overflow-y: auto;
-  max-height: calc(100vh - 80px);
+  max-height: calc(100vh - 48px);
+  background: $bg-secondary;
 }
 
 .searchHistory {
-  margin-top: $spacing-xl;
+  margin-top: $spacing-lg;
 
   h3 {
-    font-size: $font-size-sm;
-    color: $text-secondary;
+    font-size: $font-size-xs;
+    color: $text-muted;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: $spacing-md;
+    margin-bottom: $spacing-sm;
+    padding: 0 $spacing-sm;
   }
 }
 
@@ -63,11 +69,12 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  padding: $spacing-sm $spacing-md;
-  border-radius: $radius-md;
-  margin-bottom: $spacing-xs;
-  transition: background 0.2s;
+  padding: $spacing-sm $spacing-sm;
+  border-radius: $radius-sm;
+  margin-bottom: 2px;
+  transition: background 0.15s ease;
   text-align: left;
+  border: 1px solid transparent;
 
   &:hover {
     background: $bg-hover;
@@ -75,52 +82,56 @@
 
   &.active {
     background: $bg-hover;
-    border: 1px solid $accent-primary;
+    border-color: $border-light;
   }
 }
 
 .searchNiche {
   font-weight: $font-weight-medium;
   font-size: $font-size-sm;
+  color: $text-primary;
 }
 
 .searchCity {
   font-size: $font-size-xs;
   color: $text-secondary;
+  margin-top: 2px;
 }
 
 .searchStatus {
-  font-size: $font-size-xs;
-  padding: 2px 8px;
-  border-radius: $radius-full;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
   margin-top: $spacing-xs;
+  font-weight: $font-weight-medium;
 
   &.completed {
-    background: rgba($accent-success, 0.15);
+    background: rgba(62, 207, 142, 0.1);
     color: $accent-success;
   }
 
   &.processing {
-    background: rgba($accent-primary, 0.15);
-    color: $accent-primary;
+    background: rgba(234, 179, 8, 0.1);
+    color: $accent-warning;
   }
 
   &.failed {
-    background: rgba($accent-danger, 0.15);
+    background: rgba(245, 101, 101, 0.1);
     color: $accent-danger;
   }
 
   &.pending {
-    background: rgba($text-muted, 0.15);
+    background: rgba(102, 102, 102, 0.1);
     color: $text-muted;
   }
 }
 
 .main {
   flex: 1;
-  padding: $spacing-lg;
+  padding: $spacing-xl;
   overflow-y: auto;
-  max-height: calc(100vh - 80px);
+  max-height: calc(100vh - 48px);
+  background: $bg-primary;
 }
 
 .toolbar {
@@ -130,27 +141,30 @@
   margin-bottom: $spacing-lg;
 
   h2 {
-    font-size: $font-size-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
   }
 }
 
 .exportBtn {
-  background: $accent-secondary;
-  color: $bg-primary;
-  padding: $spacing-sm $spacing-lg;
-  border-radius: $radius-md;
+  background: $accent-primary;
+  color: #111;
+  padding: 6px $spacing-md;
+  border-radius: $radius-sm;
   font-weight: $font-weight-medium;
-  font-size: $font-size-sm;
+  font-size: $font-size-xs;
+  transition: opacity 0.15s ease;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.85;
   }
 }
 
 .leadGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: $spacing-lg;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: $spacing-md;
 }
 
 .loading {
@@ -158,6 +172,6 @@
   align-items: center;
   justify-content: center;
   padding: $spacing-3xl;
-  color: $text-secondary;
-  font-size: $font-size-lg;
+  color: $text-muted;
+  font-size: $font-size-sm;
 }
